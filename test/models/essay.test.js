@@ -1,9 +1,12 @@
 var mongoose = require("mongoose");
+/*
 var Essay = require("../../models/essay");
 
-mongoose.connect('mongodb://localhost/readr_test');
 describe("Essay", function() {
 	var currentEssay = null;
+	before(function(done) {
+		mongoose.connect('mongodb://localhost/readr_test');
+	});
 
 	beforeEach(function(done) {
 		currentEssay = new Essay({});
@@ -17,6 +20,10 @@ describe("Essay", function() {
 		Essay.remove({}, function() {
 			done();
 		});
+	});
+
+	after(function(done) {
+		mongoose.disconnect();
 	});
 
 	describe("#save()", function() {
@@ -39,3 +46,4 @@ describe("Essay", function() {
 	});
 
 });
+*/
