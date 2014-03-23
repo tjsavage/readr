@@ -9,7 +9,7 @@
     "express": "3.4.4",
     "ejs": "*",
     "mongoose": "*",
-    "chai": "*",
-    "mocha": "*"
+    "mocha": "*",
+    "should": "*"
   }
 }
