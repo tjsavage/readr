@@ -7,6 +7,9 @@
   },
   "dependencies": {
     "express": "3.4.4",
-    "ejs": "*"
+    "ejs": "*",
+    "mongoose": "*",
+    "chai": "*",
+    "mocha": "*"
   }
 }
