@@ -11,6 +11,8 @@
     "mongoose": "*",
     "mocha": "*",
     "should": "*",
-    "grunt": "*"
+    "grunt": "*",
+    "swig": "*",
+    "consolidate": "*"
   }
 }
