@@ -1,4 +1,5 @@
 {
 	"verbose": true,
-	"watch": ["public", "models", "routes", "views"]
+	"watch": ["public", "models", "routes", "views"],
+	"ext": "js,html"
 }
