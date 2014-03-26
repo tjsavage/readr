@@ -13,6 +13,12 @@
     "should": "*",
     "grunt": "*",
     "swig": "*",
-    "consolidate": "*"
+    "consolidate": "*",
+    "passport": "*",
+    "passport-local": "*",
+    "passport-facebook": "*",
+    "passport-google-oauth": "*",
+    "connect-flash": "*",
+    "bcrypt-nodejs": "latest"
   }
 }
