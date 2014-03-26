@@ -1,1 +1,27 @@
 {% extends '../base.html' %}
+
+{% block content %}
+<div class="login">
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="login-icon">
+                <img src="/img/icons/key.svg">
+                <h4>Log In.</h4>
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <form class="login-form" method="post" action="/accounts/login/">
+                <div class="form-group">
+                    <input type="text" class="form-control login-field" placeholder="Enter your email" id="login-email" name="login-email">
+                    <label class="login-field-icon fui-user" for="login-email"></label>
+                </div>
+                <div class="form-group">
+                    <input type="password" class="form-control login-field" placeholder="Password" id="login-password" name="login-password">
+                    <label class="login-field-icon fui-lock" for="login-password"></label>
+                </div>
+                <input type="submit" class="btn btn-primary btn-lg btn-block" value="Login" />
+                <a class="login-forgot" href="/accounts/reset/">Forgot your password?</a>
+            </form>
+        </div>
+    </div>
+</div>

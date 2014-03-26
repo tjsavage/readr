@@ -4,5 +4,5 @@ exports.get_login = function(req, res) {
 }
 
 exports.post_login = function(req, res) {
-	res.render('accounts/login.html', {});
+	res.send(req.body["login-email"]);
 }
