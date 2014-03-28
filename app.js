@@ -13,6 +13,7 @@ var flash = require('connect-flash');
 
 var middleware = require('./middleware');
 var configDB = require('./config/database.js');
+var configPassport = require('./config/passport');
 
 var app = express();
 
@@ -45,6 +46,8 @@ app.configure(function() {
     if ('development' == app.get('env')) {
       app.use(express.errorHandler());
     }
+
+    configPassport(passport);
 });
 
 require('./urls.js')(app, passport);

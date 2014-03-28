@@ -11,7 +11,7 @@ exports.post_login = function(req, res) {
 
 exports.get_register = function(req, res) {
     res.render('accounts/register.html', {
-        message: req.flash('signupMessage')
+        message: req.flash('loginMessage')
     });
 }
 
