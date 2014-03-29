@@ -1,6 +1,6 @@
 // models/user.js
 var mongoose = require('mongoose');
-var bcrypt = require('bcrypt-nodejs');
+var bcrypt = require('bcrypt');
 
 var userSchema = mongoose.Schema({
     local: {
@@ -22,21 +22,21 @@ var userSchema = mongoose.Schema({
 });
 
 userSchema.methods.generateHash = function(password) {
-    return bcrypt.hashSync(password, bcrypt.genSaltSync(8), null);
+    var salt = bcrypt.genSaltSync(10);
+    return bcrypt.hashSync(password, salt);
 };
 
 userSchema.methods.validPassword = function(password) {
     return bcrypt.compareSync(password, this.local.password);
 };
 
-userSchema.pre('save', function(next) {
+userSchema.pre('save', function userPreSave(next) {
     var user = this;
-    if (!user.isModified('password')) {
+    if (!user.isModified('local.password')) {
         return next();
     }
 
-    var hashedPassword = user.generateHash(user.password);
-    user.password = hashedPassword;
+    user.local.password = user.generateHash(user.local.password);
 
     next();
 });

@@ -16,7 +16,7 @@ describe("User", function() {
         done();
     });
 
-    describe("local auth", function() {
+    describe("local-auth", function() {
         var testUser;
 
         beforeEach(function(done) {
@@ -42,16 +42,25 @@ describe("User", function() {
 
         it("should successfully find a user by email", function(done) {
             User.findOne({'local.email': TEST_EMAIL}, function(err, user) {
-                user.should.equal(testUser);
-            })
-        })
+                user.should.be.ok;
+                done();
+            });
+        });
+
+        it("should hash the password on save", function(done) {
+            User.findOne({'local.email': TEST_EMAIL}, function(err, user) {
+                user.should.be.ok;
+                user.local.password.should.not.equal(TEST_PASS);
+                done();
+            });
+        });
 
         it("should validate the user's password if correct", function(done) {
 
             User.findOne({'local.email': TEST_EMAIL}, function(err, user) {
                 if (err) throw err;
 
-                user.validatePassword(TEST_PASS).should.be.true;
+                user.validPassword(TEST_PASS).should.be.true;
                 done();
             });
         });
@@ -61,7 +70,7 @@ describe("User", function() {
             User.findOne({'local.email': TEST_EMAIL}, function(err, user) {
                 if (err) throw err;
 
-                user.validatePassword('wrong').should.not.be.true;
+                user.validPassword('wrong').should.not.be.true;
                 done();
             });
         });

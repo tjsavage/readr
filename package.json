@@ -19,6 +19,6 @@
     "passport-facebook": "*",
     "passport-google-oauth": "*",
     "connect-flash": "*",
-    "bcrypt-nodejs": "latest"
+    "bcrypt": "latest"
   }
 }
