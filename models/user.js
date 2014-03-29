@@ -29,4 +29,16 @@ userSchema.methods.validPassword = function(password) {
     return bcrypt.compareSync(password, this.local.password);
 };
 
+userSchema.pre('save', function(next) {
+    var user = this;
+    if (!user.isModified('password')) {
+        return next();
+    }
+
+    var hashedPassword = user.generateHash(user.password);
+    user.password = hashedPassword;
+
+    next();
+});
+
 module.exports = mongoose.model('User', userSchema);
