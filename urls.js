@@ -23,5 +23,6 @@ module.exports = function(app, passport) {
     app.get('/accounts/logout', accounts.get_logout);
 
     app.get('/dashboard', middleware.isLoggedIn, reader.dashboard);
+    app.get('/apply', reader.apply);
 
 }

@@ -10,10 +10,13 @@ var swig = require('swig');
 var consolidate = require('consolidate');
 var passport = require('passport');
 var flash = require('connect-flash');
+var mongoose = require('mongoose');
 
 var middleware = require('./middleware');
 var configDB = require('./config/database.js');
 var configPassport = require('./config/passport');
+
+mongoose.connect(configDB.url);
 
 var app = express();
 
