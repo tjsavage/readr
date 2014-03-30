@@ -20,6 +20,12 @@ module.exports = function(app, passport) {
         failureFlash: true
     }));
 
+    // Forgot password functionality
+    app.get('/accounts/forgot', accounts.get_forgot);
+    app.post('/accounts/forgot', accounts.post_forgot);
+    app.get('/accounts/reset', accounts.get_reset);
+    app.post('/accounts/reset', accounts.post_reset);
+
     app.get('/accounts/logout', accounts.get_logout);
 
     app.get('/dashboard', middleware.isLoggedIn, reader.dashboard);

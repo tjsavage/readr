@@ -11,12 +11,11 @@ var consolidate = require('consolidate');
 var passport = require('passport');
 var flash = require('connect-flash');
 var mongoose = require('mongoose');
+var forgot = require('password-reset')(require('./config/forgot'));
 
 var middleware = require('./middleware');
 var configDB = require('./config/database.js');
 var configPassport = require('./config/passport');
-
-mongoose.connect(configDB.url);
 
 var app = express();
 
@@ -35,8 +34,10 @@ app.configure(function() {
     app.use(express.json());
     app.use(express.urlencoded());
     app.use(express.methodOverride());
-    app.use(express.cookieParser('your secret here'));
+    app.use(express.cookieParser('jsd94*&$Hjw0(*SHFK8h18**&32!'));
     app.use(express.session());
+    // app.use(require('sesame')());
+    app.use(forgot.middleware);
 
     app.use(passport.initialize());
     app.use(passport.session());
@@ -51,12 +52,17 @@ app.configure(function() {
     }
 
     configPassport(passport);
+    require('./urls.js')(app, passport);
 });
 
-require('./urls.js')(app, passport);
+function start(done) {
+    http.createServer(app).listen(app.get('port'), function(){
+        console.log('Express server listening on port ' + app.get('port'));
+        if (done) {
+            done();
+        }
+    });
+}
 
-
-
-http.createServer(app).listen(app.get('port'), function(){
-  console.log('Express server listening on port ' + app.get('port'));
-});
+exports.start = start;
+exports.app = app;

@@ -6,7 +6,7 @@
         <div class="col-sm-6">
             <div class="account-icon">
                 <img src="/img/icons/key.svg">
-                <h4>Log In.</h4>
+                <h4>Reset your password.</h4>
             </div>
         </div>
         <div class="col-sm-6">
@@ -15,16 +15,15 @@
             {% endif %}
             <form class="account-form" method="post" action="/accounts/login/">
                 <div class="form-group">
-                    <input type="text" class="form-control account-field" placeholder="Enter your email" id="account-email" name="email">
-                    <label class="account-field-icon fui-user" for="account-email"></label>
+                    <input type="password" class="form-control account-field" placeholder="Enter your new password" id="account-password" name="password">
+                    <label class="account-field-icon fui-lock" for="account-password"></label>
                 </div>
                 <div class="form-group">
-                    <input type="password" class="form-control account-field" placeholder="Password" id="account-password" name="password">
-                    <label class="account-field-icon fui-lock" for="account-password"></label>
+                    <input type="password" class="form-control account-field" placeholder="Confirm password" id="account-confirm" name="confirm">
+                    <label class="account-field-icon fui-user" for="account-confirm"></label>
                 </div>
                 <input type="submit" class="btn btn-primary btn-lg btn-block" value="Login" />
                 <div class="account-subtext"><a class="account-create" href="/accounts/register/">Create an account</a><br />
-                <a class="account-forgot" href="/accounts/forgot/">Forgot your password?</a></div>
             </form>
         </div>
     </div>

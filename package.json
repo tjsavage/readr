@@ -19,6 +19,10 @@
     "passport-facebook": "*",
     "passport-google-oauth": "*",
     "connect-flash": "*",
-    "bcrypt": "latest"
+    "bcrypt": "latest",
+    "supertest": "*",
+    "password-reset": "*",
+    "sesame": "*",
+    "pony": "*"
   }
 }
