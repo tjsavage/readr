@@ -21,8 +21,7 @@
     "connect-flash": "*",
     "bcrypt": "latest",
     "supertest": "*",
-    "password-reset": "*",
-    "sesame": "*",
-    "pony": "*"
+    "email-templates": "*",
+    "nodemailer": "*"
   }
 }

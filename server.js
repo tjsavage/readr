@@ -11,7 +11,6 @@ var consolidate = require('consolidate');
 var passport = require('passport');
 var flash = require('connect-flash');
 var mongoose = require('mongoose');
-var forgot = require('password-reset')(require('./config/forgot'));
 
 var middleware = require('./middleware');
 var configDB = require('./config/database.js');
@@ -25,9 +24,7 @@ app.configure(function() {
     app.set('view engine', 'html');
     app.set('views', path.join(__dirname, 'views'));
     app.engine('.html', consolidate.swig);
-    app.locals({
-        siteName: "Readr"
-    });
+    app.locals(require('./config/locals.js'));
 
     app.use(express.favicon());
     app.use(express.logger('dev'));
@@ -36,8 +33,6 @@ app.configure(function() {
     app.use(express.methodOverride());
     app.use(express.cookieParser('jsd94*&$Hjw0(*SHFK8h18**&32!'));
     app.use(express.session());
-    // app.use(require('sesame')());
-    app.use(forgot.middleware);
 
     app.use(passport.initialize());
     app.use(passport.session());

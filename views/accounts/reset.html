@@ -13,16 +13,16 @@
             {% if (message.length > 0) %}
                 <div class="alert alert-danger">{{ message }}</div>
             {% endif %}
-            <form class="account-form" method="post" action="/accounts/login/">
+            <form class="account-form" method="post" action="/accounts/reset/">
                 <div class="form-group">
                     <input type="password" class="form-control account-field" placeholder="Enter your new password" id="account-password" name="password">
                     <label class="account-field-icon fui-lock" for="account-password"></label>
                 </div>
                 <div class="form-group">
                     <input type="password" class="form-control account-field" placeholder="Confirm password" id="account-confirm" name="confirm">
-                    <label class="account-field-icon fui-user" for="account-confirm"></label>
+                    <label class="account-field-icon fui-lock" for="account-confirm"></label>
                 </div>
-                <input type="submit" class="btn btn-primary btn-lg btn-block" value="Login" />
+                <input type="submit" class="btn btn-primary btn-lg btn-block" value="Reset password" />
                 <div class="account-subtext"><a class="account-create" href="/accounts/register/">Create an account</a><br />
             </form>
         </div>

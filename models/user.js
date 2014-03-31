@@ -6,6 +6,10 @@ var userSchema = mongoose.Schema({
     local: {
         email: String,
         password: String,
+        reset: {
+            token: String,
+            timestamp: { type: Date, default: Date.now }
+        }
     },
     facebook: {
         id: String,

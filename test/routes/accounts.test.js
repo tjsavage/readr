@@ -8,6 +8,8 @@ var TEST_EMAIL = "test@test.com";
 var TEST_PASS = "abc";
 var accounts = require("../../routes/accounts");
 
+process.env.NODE_ENV = "test";
+
 describe("Accounts.js", function() {
     var response;
 
@@ -53,7 +55,7 @@ describe("Accounts.js", function() {
                 .post('/accounts/login')
                 .send({email: TEST_EMAIL, password: 'wrong'})
                 .expect('location', '/accounts/login')
-                .end(done)
+                .end(done);
         });
     });
 
@@ -71,7 +73,7 @@ describe("Accounts.js", function() {
                 .post('/accounts/register')
                 .send({email: "unique@email.com", password: TEST_PASS})
                 .expect(function(res) {
-                    res.headers.location.should.not.equal("/accounts/register")
+                    res.headers.location.should.not.equal("/accounts/register");
                 })
                 .end(done);
         });
@@ -84,6 +86,53 @@ describe("Accounts.js", function() {
                 .end(done);
         });
 
+    });
+
+    describe("resetting password", function() {
+        beforeEach(function(done) {
+            createTestUser(done);
+        });
+
+        afterEach(function(done) {
+            deleteAllUsers(done);
+        });
+
+        it("should not let the users send an email if the email doesn't exist", function(done) {
+            request(app)
+                .post('/accounts/forgot')
+                .send({email: "wrong@email.com"})
+                .expect(302)
+                .end(done);
+        });
+
+        it("should let the user send a forgot email", function(done) {
+            request(app)
+                .post('/accounts/forgot')
+                .send({email: "test@test.com"})
+                .expect(200)
+                .end(done);
+        });
+
+        it("should let the user reset their password", function(done) {
+            request(app)
+                .post('/accounts/forgot')
+                .send({email: TEST_EMAIL})
+                .expect(200)
+                .end(function() {
+                    User.findOne({"local.email": TEST_EMAIL}, function(err, user) {
+                        if (err) throw err;
+                        user.should.be.ok;
+
+                        var token = user.local.reset.token;
+                        token.should.be.ok;
+
+                        request(app)
+                            .get('/accounts/reset?resetToken=' + token)
+                            .expect(200)
+                            .end(done);
+                    });
+                });
+        });
     });
 });
 
