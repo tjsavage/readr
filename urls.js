@@ -1,6 +1,7 @@
 var accounts = require('./routes/accounts');
 var reader = require('./routes/reader');
 var routes = require('./routes');
+var essays = require('./routes/essays');
 var middleware = require('./middleware');
 
 // urls.js
@@ -30,5 +31,7 @@ module.exports = function(app, passport) {
 
     app.get('/dashboard', middleware.isLoggedIn, reader.dashboard);
     app.get('/apply', reader.apply);
+
+    app.get('/essays/submit', essays.submit);
 
 }
