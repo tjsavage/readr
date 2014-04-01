@@ -56,3 +56,27 @@ body {
     margin-top: 15px;
     text-align: center;
 }
+
+.school-card {
+    height: 100px;
+    width: 170px;
+    text-align: center;
+    background-color: #eff0f2;
+    border-radius: 6px;
+    padding: 14px;
+    position: relative;
+    text-align: center;
+}
+
+.school-name {
+    font-size: 18px;
+}
+
+.submit-upload {
+    border-right: 1px dashed #cecece;
+}
+
+
+.school-picker-list {
+
+}

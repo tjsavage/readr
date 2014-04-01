@@ -1,12 +1,48 @@
 {% extends '../base.html' %}
 
+{% block html_tag_attrs %}
+ng-app="ngSubmitForm"
+{% endblock %}
+
+{% block js %}
+<script src="/js/angular.js"></script>
+<script src="/js/schoolPicker.js"></script>
+{% endblock %}
+
 {% block content %}
 <div class="submit-essay">
-    <form method="post" action="/essays/submit">
-    <div class="row">
-        <div class="col-sm-12">
-            <h1>1. What school are you applying to?</h1>
+    <form method="post" class="account-form" action="/essays/submit">
+    <div class="row submit-school">
+        <div class="col-sm-12" ng-controller="SchoolPickerCtrl">
+
+            <h3>1. What school are you applying to?</h3>
+
+            
+            <div class="form-group">
+                    <input type="text" class="form-control" id="school-id" name="schoolID" placeholder="Search for a school..." ng-model="query" />
+                    <label class="account-field-icon fui-search" for="school-id"></label>
+            </div>
+            <ul class="school-picker-list">
+                <div class="col-xs-3" ng-repeat="school in schools | filter:query">
+                    <div class="btn btn-primary btn-large btn-block" ng-click="select(school.id)">
+                        <div class="school-name" ng-bind="school.name"></div>
+                    </div>
+                </li>
+            </ul>
         </div>
     </div>
+    <div class="row submit-prompt">
+        <div class="col-sm-12">
+            <h3>2. What is the prompt?</h3>
+            <div class="form-group">
+                <textarea class="form-control" id="submit-prompt-textarea" placeholder="Enter the prompt here..."></textarea>
+            </div>
+        </div>
+    </div>
+    <div class="row submit-essay">
+        <div class="col-sm-6 submit-upload">
+            <a class="btn btn-primary btn-large btn-block">Upload your essay</a>
+        </div>
+
 </div>
 {% endblock %}

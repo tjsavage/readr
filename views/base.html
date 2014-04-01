@@ -1,6 +1,6 @@
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" {% block html_tag_attrs %}{% endblock %}>
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -18,6 +18,9 @@
     <link href="/css/base.css" rel="stylesheet">
 
     {% block css %}
+    {% endblock %}
+
+    {% block js %}
     {% endblock %}
 
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
