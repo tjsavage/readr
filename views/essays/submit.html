@@ -6,43 +6,58 @@ ng-app="ngSubmitForm"
 
 {% block js %}
 <script src="/js/angular.js"></script>
-<script src="/js/schoolPicker.js"></script>
+<script src="/js/submitEssay.js"></script>
 {% endblock %}
 
-{% block content %}
+{% block main %}
 <div class="submit-essay">
-    <form method="post" class="account-form" action="/essays/submit">
-    <div class="row submit-school">
-        <div class="col-sm-12" ng-controller="SchoolPickerCtrl">
+    <form method="post" class="account-form" action="/essays/submit" ng-controller="SubmitEssayCtrl">
+    <section class="submit-school fade in" ng-class="{in: currentSection==1, dim: currentSection>1}" ng-click="clickedSection(1)">
+        <div class="row">
+            <div class="col-sm-12" ng-controller="SchoolPickerCtrl">
 
-            <h3>1. What school are you applying to?</h3>
+                <h3>1. What school are you applying to?</h3>
 
-            
-            <div class="form-group">
-                    <input type="text" class="form-control" id="school-id" name="schoolID" placeholder="Search for a school..." ng-model="query" />
-                    <label class="account-field-icon fui-search" for="school-id"></label>
-            </div>
-            <ul class="school-picker-list">
-                <div class="col-xs-3" ng-repeat="school in schools | filter:query">
-                    <div class="btn btn-primary btn-large btn-block" ng-click="select(school.id)">
-                        <div class="school-name" ng-bind="school.name"></div>
+                
+                <div class="form-group">
+                        <input type="text" class="form-control" id="school-id" name="schoolID" placeholder="Search for a school..." ng-model="query" />
+                        <label class="account-field-icon fui-search" for="school-id"></label>
+                </div>
+                <ul class="school-picker-list">
+                    <div class="col-xs-3" ng-repeat="school in schools | filter:query">
+                        <div class="btn btn-large btn-block" ng-click="select(school)" ng-class="{'btn-primary': school.id==selectedSchool.id,
+                        'btn-default': school!=selectedSchool}">
+                            <div class="school-name" ng-bind="school.name"></div>
+                        </div>
                     </div>
-                </li>
-            </ul>
-        </div>
-    </div>
-    <div class="row submit-prompt">
-        <div class="col-sm-12">
-            <h3>2. What is the prompt?</h3>
-            <div class="form-group">
-                <textarea class="form-control" id="submit-prompt-textarea" placeholder="Enter the prompt here..."></textarea>
+                </ul>
             </div>
         </div>
-    </div>
-    <div class="row submit-essay">
-        <div class="col-sm-6 submit-upload">
-            <a class="btn btn-primary btn-large btn-block">Upload your essay</a>
+    </section>
+    <section class="submit-prompt fade" ng-class="{in: currentSection==2, dim: currentSection>2}" ng-click="clickedSection(2)" ng-controller="PromptPickerCtrl">
+        <div class="row">
+            <div class="col-sm-12" >
+                <h3>2. What is the prompt?</h3>
+                <div class="prompt-picker-list">
+                    <div class="col-xs-3" ng-repeat="prompt in selectedSchool.prompts">
+                        <div class="btn btn-large btn-default btn-block" ng-click="select(prompt)" ng-class="{'btn-primary': prompt.id==selectedPrompt.id,
+                        'btn-default': prompt!=selectedPrompt}">
+                            <p ng-bind="prompt.prompt"></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-
+    </section>
+    <section class="submit-upload fade" ng-class="{in: currentSection==3, dim: currentSection>3}" ng-click="clickedSection(3)">
+        <div class="row">
+            <div class="col-sm-12">
+                <h3>3. Send us your essay.</h4>
+            </div>
+            <div class="col-sm-6 submit-upload">
+                <a class="btn btn-primary btn-large btn-block">Upload your essay</a>
+            </div>
+        </div>
+    </section>
 </div>
 {% endblock %}

@@ -6,6 +6,16 @@ body {
 	margin-top: 68px;
 }
 
+#main-wrapper {
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+}
+
+#main {
+    width: 100%;
+}
+
 .account {
     background-color: #edeff1;
 	position: relative;
@@ -57,9 +67,7 @@ body {
     text-align: center;
 }
 
-.school-card {
-    height: 100px;
-    width: 170px;
+.tile {
     text-align: center;
     background-color: #eff0f2;
     border-radius: 6px;
@@ -79,4 +87,8 @@ body {
 
 .school-picker-list {
 
+}
+
+.dim {
+    opacity: 0.2;
 }

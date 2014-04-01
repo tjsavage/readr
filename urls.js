@@ -2,6 +2,7 @@ var accounts = require('./routes/accounts');
 var reader = require('./routes/reader');
 var routes = require('./routes');
 var essays = require('./routes/essays');
+var api = require('./routes/api');
 var middleware = require('./middleware');
 
 // urls.js
@@ -33,5 +34,9 @@ module.exports = function(app, passport) {
     app.get('/apply', reader.apply);
 
     app.get('/essays/submit', essays.submit);
+
+    app.get('/api/schools', api.schools);
+    app.get('/api/schools/:schoolID', api.school);
+    app.get('/api/schools/:schoolID/prompts', api.school_prompts);
 
 }
