@@ -67,6 +67,18 @@ body {
     text-align: center;
 }
 
+.submit-section {
+    padding-bottom: 30px;
+}
+
+#submit-prompt {
+    padding-top: 53px;
+}
+
+#submit-upload {
+    padding-top: 53px;
+}
+
 .tile {
     text-align: center;
     background-color: #eff0f2;
@@ -76,12 +88,29 @@ body {
     text-align: center;
 }
 
+.picker-card {
+    margin: 5px;
+    float: left;
+}
+
 .school-name {
     font-size: 18px;
 }
 
 .submit-upload {
-    border-right: 1px dashed #cecece;
+}
+
+.upload-options > div {
+    text-align: center;
+}
+
+.absolute-center {
+    margin: auto;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
 }
 
 
@@ -91,4 +120,17 @@ body {
 
 .dim {
     opacity: 0.2;
+}
+
+.copy-paste-area {
+    height: 4em;
+    -webkit-transition: height 0.25s ease;
+    -moz-transition: height 0.25s ease;
+    -o-transition: height 0.25s ease;
+    -ms-transition: height 0.25s ease;
+    transition: height 0.25s ease;
+}
+
+.copy-paste-area:focus {
+    height: 20em;
 }
