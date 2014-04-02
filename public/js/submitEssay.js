@@ -26,6 +26,7 @@ app.controller('PromptPickerCtrl', function($scope, School) {
 
 app.controller('EssayUploaderCtrl', function($scope) {
     $scope.uploadedEssay = false;
+    $scope.selectedFileToUpload;
 
     $scope.changedEssayText = function() {
         if (!$scope.uploadedEssay) {
@@ -36,6 +37,26 @@ app.controller('EssayUploaderCtrl', function($scope) {
     $scope.blurredEssayText = function() {
         $scope.focused = false;
         $scope.$parent.goToNext();
+    };
+
+    $scope.removeFiles = function() {
+        var element = document.getElementById("essayFile");
+        element.value = "";
+        $scope.file = null;
+        $scope.uploadedEssay = false;
+        $scope.selectedFileToUpload = false;
+    };
+
+    $scope.setFiles = function() {
+        $scope.$apply(function(scope) {
+            var element = document.getElementById("essayFile");
+            console.log('scope: ', scope.essayText);
+            scope.file = element.files[0];
+            scope.uploadedEssay = true;
+            scope.selectedFileToUpload = true;
+            //scope.$parent.goToNext();
+        });
+            
     }
 });
 

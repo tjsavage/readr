@@ -134,3 +134,7 @@ body {
 .copy-paste-area:focus {
     height: 20em;
 }
+
+input[type="file"] {
+    font-size: 12px;
+}

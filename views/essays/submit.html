@@ -11,7 +11,7 @@ ng-app="ngSubmitForm"
 
 {% block main %}
 <div class="submit-essay">
-    <form method="post" class="account-form" action="/essays/submit" ng-controller="SubmitEssayCtrl">
+    <form method="post" class="account-form" action="/essays/submit" enctype="multipart/form-data" ng-controller="SubmitEssayCtrl">
     <section id="submit-school" class="submit-section submit-school fade in" ng-class="{in: currentSection==1, dim: currentSection>1}" ng-click="clickedSection(1)">
         <div class="row">
             <div class="col-sm-12" ng-controller="SchoolPickerCtrl">
@@ -57,7 +57,8 @@ ng-app="ngSubmitForm"
         </div>
         <div class="row">
             <div class="col-sm-12">
-                <a name="essayFile" class="btn btn-primary btn-large btn-block">Upload your essay</a>
+                <input type="file" name="essayFile" id="essayFile" ng-model-instant="fileToUpload" multiple onchange="angular.element(this).scope().setFiles()" />
+                <div ng-click="removeFiles()" class="btn btn-xs btn-danger" ng-class="{hidden: !selectedFileToUpload}" style="float: left;">Remove file</div>
             </div>
         </div>
         <div class="row upload-options">
