@@ -42,7 +42,7 @@ describe("Essay", function() {
 			Essay.findOne({'school': SCHOOL}, function(err, essay){
 				if (err) throw err;
 		
-				essay.setStatus('esthena').should.throw();
+				essay.setStatus.bind('esthena').should.throw('invalid status');
 				done();
 			});
 		});

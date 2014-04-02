@@ -18,21 +18,17 @@ var essaySchema = new Schema({
 	document_id: Schema.ObjectId
 });
 
-var Essay = mongoose.model('Essay', essaySchema);
-
-
 
 essaySchema.methods.setStatus = function(status) {
 	var statusOptions = ['submitted','claimed','reviewed','returned','closed']
-	if (statusOptions.contains(status)){
+	if (statusOptions.indexOf(status)!=-1){
 		return;
 	}
 	else {
-		throw "invalid status";
+		throw new Error('invalid status');
 		return;
 	}
 
 }
 
-mongoose.model('Essay', essaySchema)
 module.exports = mongoose.model('Essay', essaySchema);
