@@ -54,6 +54,14 @@ var SCHOOLS = [
 	{
 		"name": "Harvard",
 		"id": 4
+	},
+	{
+		"name": "UCLA",
+		"id": 5
+	},
+	{
+		"name": "Berkeley",
+		"id": 6
 	}
 ];
 

@@ -24,46 +24,136 @@ app.controller('PromptPickerCtrl', function($scope, School) {
     };
 });
 
-app.controller('SubmitEssayCtrl', function($scope, School) {
+app.controller('EssayUploaderCtrl', function($scope) {
+    $scope.uploadedEssay = false;
+    $scope.selectedFileToUpload;
+
+    $scope.changedEssayText = function() {
+        if (!$scope.uploadedEssay) {
+            $scope.$parent.selectEssay($scope.essayText);
+        }
+    };
+
+    $scope.blurredEssayText = function() {
+        $scope.focused = false;
+        $scope.$parent.goToNext();
+    };
+
+    $scope.removeFiles = function() {
+        var element = document.getElementById("essayFile");
+        element.value = "";
+        $scope.file = null;
+        $scope.uploadedEssay = false;
+        $scope.selectedFileToUpload = false;
+    };
+
+    $scope.setFiles = function() {
+        $scope.$apply(function(scope) {
+            var element = document.getElementById("essayFile");
+            console.log('scope: ', scope.essayText);
+            scope.file = element.files[0];
+            scope.uploadedEssay = true;
+            scope.selectedFileToUpload = true;
+            //scope.$parent.goToNext();
+        });
+            
+    }
+});
+
+app.controller('SubmitEssayCtrl', function($scope, $location, $anchorScroll, School) {
     $scope.currentSection = 1;
     $scope.seenAllSections = false;
     $scope.numSections = 3;
     $scope.selectedSchool = null;
     $scope.selectedPrompt = null;
+    $scope.selectedEssay = null;
+    $scope.allReady = false;
 
-    $scope.nextSection = function() {
-        $scope.currentSection++;
-        if ($scope.currentSection == $scope.numSections) {
-            $scope.seenAllSections = true;
+    $scope.checkIfReady = function() {
+        if ($scope.selectedSchool != null && 
+            $scope.selectedPrompt != null &&
+            $scope.selectedEssay != null) {
+            $scope.allReady = true;
+        } else {
+            console.log($scope.selectedSchool, $scope.selectedPrompt, $scope.selectedEssay);
+            $scope.allReady = false;
         }
+        console.log("Ready:",$scope.allReady);
+    };
+
+    $scope.goToSchool = function() {
+        $scope.allReady = false;
+        $scope.currentSection = 1;
+        $location.hash('submit-school');
+        $anchorScroll();
     };
 
     $scope.goToPrompts = function() {
+        $scope.allReady = false;
         $scope.currentSection = 2;
+        $location.hash('submit-prompt');
+        $anchorScroll();
     };
 
     $scope.goToUpload = function() {
         $scope.currentSection = 3;
+        $location.hash('submit-upload');
+        $anchorScroll();
+    };
+
+    $scope.goToNext = function() {
+        $scope.currentSection = 4;
+        $location.hash('submit-next');
+        $anchorScroll();
     };
 
     $scope.selectSchool = function(school) {
         $scope.selectedSchool = school;
+
+        $scope.selectedPrompt = null;
         var promptsPromise = $scope.selectedSchool.loadPrompts();
         promptsPromise.then(function(prompts) {
             $scope.goToPrompts();
         });
+
+        $scope.checkIfReady();
     };
 
     $scope.selectPrompt = function(prompt) {
         $scope.selectedPrompt = prompt;
-        $scope.nextSection();
+        $scope.goToUpload();
+
+        $scope.checkIfReady();
+    };
+
+    $scope.selectEssay = function(essay) {
+        $scope.selectedEssay = essay;
+
+        $scope.checkIfReady();
     };
 
     $scope.clickedSection = function(sectionId) {
-        if ($scope.seenAllSections && $scope.currentSection != sectionId) {
-            $scope.currentSection = sectionId;
-        }
+        if (sectionId < $scope.currentSection) {
+            switch (sectionId) {
+                case 1:
+                    $scope.goToSchool();
+                    break;
+                case 2:
+                    $scope.goToPrompts();
+                    break;
+                case 3:
+                    $scope.goToUpload();
+                    break;
+                case 4:
+                    $scope.goToNext();
+                    break;
+            }
+        }   
     };
+
+    $scope.submit = function() {
+        console.log("submit");
+    }
 });
 
 app.factory('School', function($http) {

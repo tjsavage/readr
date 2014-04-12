@@ -1,49 +1,53 @@
 var mongoose = require("mongoose");
-/*
+var should = require("should");
 var Essay = require("../../models/essay");
 
+var SCHOOL = "Stanford"
+
+
 describe("Essay", function() {
-	var currentEssay = null;
+
 	before(function(done) {
-		mongoose.connect('mongodb://localhost/readr_test');
-	});
-
-	beforeEach(function(done) {
-		currentEssay = new Essay({});
-		currentEssay.save(function(err) {
-			if (err) throw err;
-			done();
-		});
-	});
-
-	afterEach(function(done) {
-		Essay.remove({}, function() {
-			done();
-		});
+		mongoose.connect('mongodb://localhost/readr_test',done);
 	});
 
 	after(function(done) {
 		mongoose.disconnect();
+		done();
 	});
 
-	describe("#save()", function() {
-		it("should save when asked without error", function(done) {
-			var newEssay = new Essay({});
-			newEssay.save(function(err) {
+	describe("basic essay", function(){
+		var testEssay;
+
+		beforeEach(function(done){
+			testEssay = new Essay({
+				school: SCHOOL
+			});
+
+			testEssay.save(function(err){
 				if (err) throw err;
 				done();
 			});
 		});
 
-		it("should throw an error if saved without a submitter", function(done) {
-			var newEssay = new Essay({});
-			newEssay.save(function(err) {
-				if (err) {
-					done();
-				}
+		afterEach(function(done){
+			Essay.remove({}, function(err){
+				if (err) throw err;
+				done();
 			});
 		});
-	});
 
+		it("should throw an error if the status option is invalid", function(done){
+			
+			Essay.findOne({'school': SCHOOL}, function(err, essay){
+				if (err) throw err;
+		
+				essay.setStatus.bind('esthena').should.throw('invalid status');
+				done();
+			});
+		});
+
+
+	});
 });
-*/
+
