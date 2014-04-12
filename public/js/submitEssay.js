@@ -44,7 +44,7 @@ app.controller('SubmitEssayCtrl', function($scope, School) {
 
     $scope.goToUpload = function() {
         $scope.currentSection = 3;
-    }
+    };
 
     $scope.selectSchool = function(school) {
         $scope.selectedSchool = school;
