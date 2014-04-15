@@ -22,6 +22,9 @@
                     <input type="password" class="form-control account-field" placeholder="Password" id="account-password" name="password">
                     <label class="account-field-icon fui-lock" for="account-password"></label>
                 </div>
+                {% if next %}
+                    <input type="hidden" name="next" value="{{ next }}">
+                {% endif %}
                 <input type="submit" class="btn btn-primary btn-lg btn-block" value="Login" />
                 <div class="account-subtext"><a class="account-create" href="/accounts/register/">Create an account</a><br />
                 <a class="account-forgot" href="/accounts/forgot/">Forgot your password?</a></div>

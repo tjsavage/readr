@@ -57,6 +57,21 @@ describe("Accounts.js", function() {
                 .expect('location', '/accounts/login')
                 .end(done);
         });
+
+        it("should set the correct next url if they are forced to log in", function(done) {
+            request(app)
+                .get('/essays/submit')
+                .expect('location', '/accounts/login/?next=/essays/submit')
+                .end(done);
+        });
+
+        it("should redirect correctly if logging in with a next url", function(done) {
+            request(app)
+                .post('/accounts/login')
+                .send({email: TEST_EMAIL, password: TEST_PASS, next: '/essays/submit'})
+                .expect('location', '/essays/submit')
+                .end(done);
+        });
     });
 
     describe("signing up", function() {

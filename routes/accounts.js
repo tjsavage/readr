@@ -7,7 +7,8 @@ var locals = require('../config/locals');
 
 exports.get_login = function(req, res) {
     res.render('accounts/login.html', {
-        message: req.flash('loginMessage')
+        message: req.flash('loginMessage'),
+        next: req.query.next
     });
 };
 
@@ -19,7 +20,7 @@ exports.get_register = function(req, res) {
 
 exports.get_logout = function(req, res) {
     req.logout();
-    req.redirect("/accounts/login");
+    res.redirect("/accounts/login");
 };
 
 exports.get_forgot = function(req, res) {

@@ -11,10 +11,17 @@ module.exports = function(app, passport) {
     app.get('/', routes.index);
     app.get('/accounts/login', accounts.get_login);
     app.post('/accounts/login', passport.authenticate('local-login', {
-        successRedirect: '/dashboard',
-        failureRedirect: '/accounts/login',
-        failureFlash: true
-    }));
+            failureRedirect: '/accounts/login',
+            failureFlash: true
+        }),
+        function(req, res) {
+            console.log(req.body);
+            if (req.body.next) {
+                res.redirect(req.body.next);
+            } else {
+                res.redirect('/dashboard');
+            }
+        });
 
     app.get('/accounts/register', accounts.get_register);
     app.post('/accounts/register', passport.authenticate('local-signup', {
@@ -34,7 +41,7 @@ module.exports = function(app, passport) {
     app.get('/dashboard', middleware.isLoggedIn, reader.dashboard);
     app.get('/apply', reader.apply);
 
-    app.get('/essays/submit', essays.submit);
+    app.get('/essays/submit', middleware.isLoggedIn, essays.submit);
 
     app.get('/api/schools', api.schools);
     app.get('/api/schools/:schoolID', api.school);

@@ -9,7 +9,7 @@ module.exports = {
             return next();
         }
 
-        res.redirect('/accounts/login');
+        res.redirect('/accounts/login/?next=' + req.originalUrl);
     }
 }
 
