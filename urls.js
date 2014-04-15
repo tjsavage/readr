@@ -3,6 +3,7 @@ var reader = require('./routes/reader');
 var routes = require('./routes');
 var essays = require('./routes/essays');
 var api = require('./routes/api');
+var googleapis = require('./routes/googleapis');
 var middleware = require('./middleware');
 
 // urls.js
@@ -38,5 +39,9 @@ module.exports = function(app, passport) {
     app.get('/api/schools', api.schools);
     app.get('/api/schools/:schoolID', api.school);
     app.get('/api/schools/:schoolID/prompts', api.school_prompts);
+
+
+    app.get('/oauth2configure', googleapis.oauth2configure);
+    app.get('/oauth2callback', googleapis.oauth2callback)
 
 }

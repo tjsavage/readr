@@ -22,6 +22,7 @@
     "bcrypt": "latest",
     "supertest": "*",
     "email-templates": "*",
-    "nodemailer": "*"
+    "nodemailer": "*",
+    "googleapis": "~0.7.0"
   }
 }
