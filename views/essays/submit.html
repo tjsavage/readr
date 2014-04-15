@@ -20,7 +20,7 @@ ng-app="ngSubmitForm"
 
                 
                 <div class="form-group">
-                        <input type="text" class="form-control" id="school-id" name="schoolID" placeholder="Search for a school..." ng-model="query" />
+                        <input type="text" class="form-control" id="school-query" placeholder="Search for a school..." ng-model="query" />
                         <label class="account-field-icon fui-search" for="school-id"></label>
                 </div>
                 <div class="school-picker-list">
@@ -31,6 +31,7 @@ ng-app="ngSubmitForm"
                         </div>
                     </div>
                 </div>
+                <input type="hidden" name="schoolId" id="schoolIdInput" ng-value="selectedSchool.id">
             </div>
         </div>
     </section>
@@ -46,6 +47,7 @@ ng-app="ngSubmitForm"
                         </div>
                     </div>
                 </div>
+                <input type="hidden" name="promptId" id="promptIdInput" ng-value="selectedPrompt.id">
             </div>
         </div>
     </section>
@@ -74,9 +76,10 @@ ng-app="ngSubmitForm"
         <br />
         <div class="row">
             <div class="col-sm-12">
-                <a class="btn btn-info btn-large btn-block" ng-click="submit()">Next Step: Choose Level of Feedback &raquo;</a>
+                <input class="btn btn-info btn-large btn-block" type="submit" value="Next Step: Choose Level of Feedback &raquo;">
             </div>
         </div>
     </section>
+</form>
 </div>
 {% endblock %}

@@ -30,7 +30,7 @@ app.controller('EssayUploaderCtrl', function($scope) {
 
     $scope.changedEssayText = function() {
         if (!$scope.uploadedEssay) {
-            $scope.$parent.selectEssay($scope.essayText);
+            $scope.$parent.setEssayText($scope.essayText);
         }
     };
 
@@ -45,6 +45,7 @@ app.controller('EssayUploaderCtrl', function($scope) {
         $scope.file = null;
         $scope.uploadedEssay = false;
         $scope.selectedFileToUpload = false;
+        $scope.$parent.removeEssayFile();
     };
 
     $scope.setFiles = function() {
@@ -54,6 +55,7 @@ app.controller('EssayUploaderCtrl', function($scope) {
             scope.file = element.files[0];
             scope.uploadedEssay = true;
             scope.selectedFileToUpload = true;
+            scope.$parent.setEssayFile(scope.file);
             //scope.$parent.goToNext();
         });
             
@@ -66,16 +68,17 @@ app.controller('SubmitEssayCtrl', function($scope, $location, $anchorScroll, Sch
     $scope.numSections = 3;
     $scope.selectedSchool = null;
     $scope.selectedPrompt = null;
-    $scope.selectedEssay = null;
+    $scope.selectedEssayText = null;
+    $scope.selectedEssayFile = null;
     $scope.allReady = false;
 
     $scope.checkIfReady = function() {
         if ($scope.selectedSchool != null && 
             $scope.selectedPrompt != null &&
-            $scope.selectedEssay != null) {
+            ($scope.selectedEssayText != null ||
+                $scope.selectedEssayFile != null)) {
             $scope.allReady = true;
         } else {
-            console.log($scope.selectedSchool, $scope.selectedPrompt, $scope.selectedEssay);
             $scope.allReady = false;
         }
         console.log("Ready:",$scope.allReady);
@@ -126,8 +129,20 @@ app.controller('SubmitEssayCtrl', function($scope, $location, $anchorScroll, Sch
         $scope.checkIfReady();
     };
 
-    $scope.selectEssay = function(essay) {
-        $scope.selectedEssay = essay;
+    $scope.setEssayText = function(essay) {
+        $scope.selectedEssayText = essay;
+
+        $scope.checkIfReady();
+    };
+
+    $scope.setEssayFile = function(file) {
+        $scope.selectedEssayFile = file;
+
+        $scope.checkIfReady();
+    };
+
+    $scope.removeEssayFile = function() {
+        $scope.selectedEssayFile = null;
 
         $scope.checkIfReady();
     };
@@ -152,7 +167,7 @@ app.controller('SubmitEssayCtrl', function($scope, $location, $anchorScroll, Sch
     };
 
     $scope.submit = function() {
-        console.log("submit");
+        console.log($scope.selectedSchool, $scope.selectedPrompt, $scope.selectedEssayText, $scope.selectedEssayFile);
     }
 });
 

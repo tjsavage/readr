@@ -41,7 +41,8 @@ module.exports = function(app, passport) {
     app.get('/dashboard', middleware.isLoggedIn, reader.dashboard);
     app.get('/apply', reader.apply);
 
-    app.get('/essays/submit', middleware.isLoggedIn, essays.submit);
+    app.get('/essays/submit', middleware.isLoggedIn, essays.get_submit);
+    app.post('/essays/submit', middleware.isLoggedIn, essays.post_submit);
 
     app.get('/api/schools', api.schools);
     app.get('/api/schools/:schoolID', api.school);

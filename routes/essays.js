@@ -1,5 +1,10 @@
 // routes/essays.js
 
-exports.submit = function(req, res) {
+exports.get_submit = function(req, res) {
 	res.render("essays/submit.html")
+};
+
+exports.post_submit = function(req, res) {
+    console.log(req.body);
+    res.send(200);
 };
