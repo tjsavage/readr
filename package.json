@@ -23,6 +23,7 @@
     "supertest": "*",
     "email-templates": "*",
     "nodemailer": "*",
-    "googleapis": "~0.7.0"
+    "googleapis": "~0.7.0",
+    "formidable": "~1.0.14"
   }
 }
