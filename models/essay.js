@@ -15,7 +15,8 @@ var essaySchema = new Schema({
 	date_due: Date,
 	feedback_type: String,
 	surge: Boolean,
-	document_id: Schema.ObjectId
+	document_id: Schema.ObjectId,
+	google_drive_id: String
 });
 
 

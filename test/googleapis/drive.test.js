@@ -5,7 +5,7 @@ var GOOGLE_AUTH = require("../../config/googleapis");
 process.env.NODE_ENV = 'test';
 
 var auth = new googleapis.OAuth2Client(GOOGLE_AUTH.CLIENT_ID, GOOGLE_AUTH.CLIENT_SECRET, GOOGLE_AUTH.REDIRECT_URL);
-auth.credentials = GOOGLE_AUTH.CREDENTIALS;
+auth.setCredentials(GOOGLE_AUTH.CREDENTIALS);
 
 describe('googleapis drive', function() {
     this.timeout(5000);
