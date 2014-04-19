@@ -12,7 +12,7 @@ var accounts = require("../../routes/accounts");
 
 process.env.NODE_ENV = "test";
 
-describe("submitting an essay", function() {
+describe("#essays submitting an essay", function() {
     before(function(done) {
         util.setupTestAgent(agent, done);
     });
@@ -25,5 +25,17 @@ describe("submitting an essay", function() {
         agent.get('/essays/submit')
             .expect(200)
             .end(done);
+    });
+
+    it("should submit the essay and upload it to drive", function(done) {
+        agent.post('/essays/submit')
+            .field("schoolId", 1)
+            .field("promptId", 1)
+            .attach('essayFile', __dirname + '/fixtures/essay.txt')
+            .expect(200)
+            .end(function(err) {
+                if (err) throw(err);
+                done();
+            });
     });
 })
