@@ -13,26 +13,36 @@ exports.get_submit = function(req, res) {
 };
 
 exports.post_submit = function(req, res) {
+    console.log(req);
     var form = new formidable.IncomingForm();
 
     form.parse(req, function(err, fields, files) {
         var essayFile = files.essayFile;
-        console.log(files);
-        var fileData = fs.readFile(essayFile.path);
-        googleapis.discover('drive', 'v2').execute(function(err, client) {
-            client.drive.files
-                .insert({ 
-                    title: "Test", 
-                })
-                .withMedia(essayFile.type, fileData)
-                .withAuthClient(auth)
-                .execute(function(err, result) {
+        
+        var fileStatus = fs.statSync(essayFile.path);
+        fs.open(essayFile.path, function(err, fd) {
+            if (err) throw err;
+            var buffer = new Buffer(fileStatus.size);
+            fs.read(fd, buffer, 0, fileStatus.size, 0, function(err, num) {
                 if (err) throw err;
-                res.writeHead(200, {'content-type': 'text/plain'});
-                res.end(util.inspect(result));
-            });
-        });
-
+                auth.refreshAccessToken(function(err) {
+                    if (err) throw err;
+                    googleapis.discover('drive', 'v2').execute(function(err, client) {
+                        client.drive.files
+                            .insert({ 
+                                title: "Test", 
+                            })
+                            .withMedia(essayFile.type, fd)
+                            .withAuthClient(auth)
+                            .execute(function(err, result) {
+                            if (err) throw err;
+                            res.writeHead(200, {'content-type': 'text/plain'});
+                            res.end(util.inspect(result));
+                        });
+                    });
+                });
+            })
+        });             
     });
 
     return;
