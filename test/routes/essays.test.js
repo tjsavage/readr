@@ -13,6 +13,8 @@ var accounts = require("../../routes/accounts");
 process.env.NODE_ENV = "test";
 
 describe("#essays submitting an essay", function() {
+    this.timeout(10000);
+    
     before(function(done) {
         util.setupTestAgent(agent, done);
     });
